@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuperScope — 互联网身份扫描器</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;
+  --bg-card:#111111;
+  --bg-card-hover:#1a1a1a;
+  --border:#1e1e1e;
+  --border-light:#2a2a2a;
+  --text:#fafafa;
+  --text-secondary:#888;
+  --text-muted:#555;
+  --accent:#0d9488;
+  --accent-light:#14b8a6;
+  --accent-glow:rgba(13,148,136,.25);
+  --radius:12px;
+  --radius-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ===== ANIMATED BG ===== */
+.bg-grid{
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+.bg-glow{
+  position:fixed;top:-40%;left:50%;translate:-50% 0;
+  width:900px;height:900px;
+  background:radial-gradient(circle at center,var(--accent-glow) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+  animation:glowPulse 6s ease-in-out infinite alternate;
+}
+@keyframes glowPulse{
+  0%{opacity:.3;scale:1}
+  100%{opacity:.6;scale:1.15}
+}
+
+/* ===== LAYOUT ===== */
+.container{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ===== NAV ===== */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0;border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-size:20px;font-weight:800;letter-spacing:-.5px;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-logo span{background:linear-gradient(135deg,var(--accent-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-btn{
+  background:var(--accent);color:#fff;border:none;padding:8px 20px;
+  border-radius:100px;font-size:14px;font-weight:600;cursor:pointer;
+  transition:all .2s;text-decoration:none;
+}
+.nav-btn:hover{background:var(--accent-light);transform:translateY(-1px);box-shadow:0 4px 20px var(--accent-glow)}
+
+/* ===== HERO ===== */
+.hero{
+  padding:100px 0 80px;text-align:center;
+  opacity:0;transform:translateY(30px);animation:fadeUp .8s ease-out forwards;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(13,148,136,.1);border:1px solid rgba(13,148,136,.2);
+  color:var(--accent-light);padding:6px 16px;border-radius:100px;
+  font-size:13px;font-weight:600;margin-bottom:32px;
+}
+.hero h1{
+  font-size:clamp(48px,8vw,80px);font-weight:900;letter-spacing:-3px;
+  line-height:1.05;margin-bottom:20px;
+}
+.hero h1 span{background:linear-gradient(135deg,var(--accent-light),var(--accent),#0891b2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{
+  font-size:clamp(16px,2.5vw,20px);color:var(--text-secondary);
+  max-width:600px;margin:0 auto 40px;line-height:1.7;
+}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;border:none;
+  padding:14px 32px;border-radius:100px;font-size:16px;font-weight:600;
+  cursor:pointer;text-decoration:none;transition:all .25s;
+}
+.btn-primary:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--text);border:1px solid var(--border-light);
+  padding:14px 32px;border-radius:100px;font-size:16px;font-weight:500;
+  cursor:pointer;text-decoration:none;transition:all .25s;
+}
+.btn-secondary:hover{background:var(--bg-card);border-color:var(--text-secondary)}
+
+/* ===== TERMINAL DEMO ===== */
+.terminal-wrapper{
+  max-width:780px;margin:60px auto 0;
+  opacity:0;transform:translateY(30px);
+  animation:fadeUp .8s .3s ease-out forwards;
+}
+.terminal{
+  background:#000;border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+.terminal-header{
+  display:flex;align-items:center;gap:8px;
+  padding:14px 20px;background:#0d0d0d;border-bottom:1px solid #1a1a1a;
+}
+.terminal-dot{width:12px;height:12px;border-radius:50%}
+.terminal-dot.r{background:#ff5f56}
+.terminal-dot.y{background:#ffbd2e}
+.terminal-dot.g{background:#27c93f}
+.terminal-title{color:#555;font-size:13px;font-family:'JetBrains Mono',monospace;margin-left:12px}
+.terminal-body{
+  padding:24px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.7;
+  min-height:320px;
+}
+.terminal-line{opacity:0;animation:typeLine .4s ease-out forwards;color:var(--text-secondary)}
+.terminal-line.code{color:var(--text)}
+.terminal-line.prompt{color:var(--accent-light)}
+.terminal-line.output{color:#ccc}
+.terminal-line.output.green{color:#4ade80}
+.terminal-line.output.yellow{color:#facc15}
+.terminal-line.output.cyan{color:#22d3ee}
+.terminal-line.output.red{color:#f87171}
+.terminal-line.output.dim{color:#666}
+.terminal-cursor{display:inline-block;width:9px;height:18px;background:var(--accent-light);animation:blink 1s step-end infinite;vertical-align:text-bottom;margin-left:2px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes typeLine{
+  0%{opacity:0;transform:translateY(4px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeUp{
+  0%{opacity:0;transform:translateY(30px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* ===== FEATURES ===== */
+.section{opacity:0;transform:translateY(30px);transition:all .7s ease-out}
+.section.visible{opacity:1;transform:translateY(0)}
+.features{padding:100px 0}
+.section-label{
+  display:inline-block;font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:2px;color:var(--accent-light);margin-bottom:16px;
+}
+.features h2{
+  font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1.5px;
+  margin-bottom:16px;
+}
+.features .subtitle{color:var(--text-secondary);font-size:17px;max-width:520px;margin-bottom:56px}
+.feature-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;
+}
+.feature-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:32px;
+  transition:all .3s;cursor:default;
+}
+.feature-card:hover{
+  background:var(--bg-card-hover);border-color:var(--accent);
+  transform:translateY(-4px);box-shadow:0 12px 40px rgba(13,148,136,.08);
+}
+.feature-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:20px;
+  background:rgba(13,148,136,.1);color:var(--accent-light);
+}
+.feature-card h3{font-size:18px;font-weight:700;margin-bottom:10px}
+.feature-card p{color:var(--text-secondary);font-size:14px;line-height:1.7}
+
+/* ===== COVERAGE BADGES ===== */
+.coverage{padding:80px 0;text-align:center}
+.coverage h2{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+.coverage .subtitle{color:var(--text-secondary);font-size:15px;margin-bottom:48px}
+.badge-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:800px;margin:0 auto}
+.badge{
+  display:flex;align-items:center;gap:8px;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:100px;padding:10px 20px;
+  font-size:14px;font-weight:500;transition:all .2s;
+}
+.badge:hover{border-color:var(--accent);background:var(--bg-card-hover)}
+.badge .icon{font-size:16px}
+.badge .count{color:var(--accent-light);font-weight:700}
+
+/* ===== INSTALL ===== */
+.install{padding:80px 0;text-align:center}
+.install-card{
+  max-width:600px;margin:0 auto;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:48px 32px;
+}
+.install-card h2{font-size:24px;font-weight:800;margin-bottom:12px}
+.install-card p{color:var(--text-secondary);font-size:14px;margin-bottom:32px}
+.code-block{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#000;border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 20px;font-family:'JetBrains Mono',monospace;font-size:15px;
+  text-align:left;
+}
+.code-block code{color:var(--accent-light)}
+.copy-btn{
+  background:transparent;border:1px solid var(--border-light);
+  color:var(--text-secondary);padding:6px 14px;border-radius:6px;
+  font-size:13px;cursor:pointer;transition:all .2s;
+  font-family:'Inter',sans-serif;
+}
+.copy-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ===== FOOTER ===== */
+footer{
+  border-top:1px solid var(--border);padding:32px 0;margin-top:40px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+footer p{color:var(--text-muted);font-size:13px}
+.footer-links{display:flex;gap:20px;align-items:center}
+.footer-links a{color:var(--text-muted);text-decoration:none;font-size:13px;transition:color .2s}
+.footer-links a:hover{color:var(--text)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .hero{padding:64px 0 48px}
+  .nav-links{display:none}
+  .terminal-body{font-size:13px;padding:16px;min-height:260px}
+  .feature-grid{grid-template-columns:1fr}
+  .badge-grid{gap:8px}
+  .badge{font-size:12px;padding:8px 14px}
+  .install-card{padding:32px 20px}
+  footer{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+  .hero h1{font-size:36px;letter-spacing:-1.5px}
+  .hero-actions{flex-direction:column;align-items:center}
+  .btn-primary,.btn-secondary{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- BG -->
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- NAV -->
+<div class="container">
+<nav>
+  <div class="nav-logo">🔭 <span>SuperScope</span></div>
+  <div class="nav-links">
+    <a href="#features">功能</a>
+    <a href="#coverage">覆盖平台</a>
+    <a href="#install">安装</a>
+    <a href="https://github.com/makismkuo/superscope" target="_blank">GitHub</a>
+    <a href="https://github.com/makismkuo/superscope" class="nav-btn" target="_blank">GitHub ⏤</a>
+  </div>
+</nav>
+</div>
+
+<!-- HERO -->
+<section class="container">
+<div class="hero">
+  <div class="hero-badge">⚡ 开源 · 免费 · 极致效率</div>
+  <h1><span>SuperScope</span></h1>
+  <p>扔一个名字上去，三秒后你会看到<br>这个人在互联网上的一切。</p>
+  <div class="hero-actions">
+    <a href="#install" class="btn-primary">🚀 开始使用</a>
+    <a href="https://github.com/makismkuo/superscope" target="_blank" class="btn-secondary">📖 查看源码</a>
+  </div>
+
+  <!-- TERMINAL -->
+  <div class="terminal-wrapper">
+    <div class="terminal">
+      <div class="terminal-header">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <div class="terminal-title">super@scope — superscope scan — 80×24</div>
+      </div>
+      <div class="terminal-body" id="terminal-body"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FEATURES -->
+<section class="container section" id="features">
+<div class="features">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="section-label">✦ 核心能力</div>
+    <h2>为什么选择 SuperScope</h2>
+    <p class="subtitle" style="margin:0 auto">不仅仅是搜索 — 它是一个全方位的数字身份分析引擎</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3>200+ 平台覆盖</h3>
+      <p>从微博、知乎、Bilibili 到 GitHub、Twitter、Reddit，覆盖国内外主流社交平台与社区。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>多标识符搜索</h3>
+      <p>支持用户名、邮箱、手机号、SteamID、Discord ID 等多种标识符跨平台精确扫描。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏗️</div>
+      <h3>中国站点浏览器引擎</h3>
+      <p>内置针对中文网站的智能浏览器引擎，自动处理反爬、验证码和复杂 DOM 结构。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3>人物画像分析</h3>
+      <p>基于多平台数据自动生成人物画像，分析兴趣标签、活跃时间、社交图谱关系。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔗</div>
+      <h3>跨平台关联</h3>
+      <p>智能关联同一人在不同平台的账号，交叉验证身份信息，生成完整的数字身份图谱。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>毫秒级响应</h3>
+      <p>异步并发引擎驱动，批量扫描百个平台仅需数秒，内置速率限制和队列管理。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- COVERAGE -->
+<section class="container section" id="coverage">
+<div class="coverage">
+  <div class="section-label">✦ 覆盖平台</div>
+  <h2>全球主流平台一览</h2>
+  <p class="subtitle">持续更新中 — 目前已支持 200+ 平台</p>
+  <div class="badge-grid">
+    <div class="badge"><span class="icon">🅰️</span> 微博 <span class="count">Weibo</span></div>
+    <div class="badge"><span class="icon">📺</span> Bilibili <span class="count">B站</span></div>
+    <div class="badge"><span class="icon">❓</span> 知乎 <span class="count">Zhihu</span></div>
+    <div class="badge"><span class="icon">📕</span> 小红书 <span class="count">Xiaohongshu</span></div>
+    <div class="badge"><span class="icon">🐦</span> Twitter/X <span class="count">200M+</span></div>
+    <div class="badge"><span class="icon">💻</span> GitHub <span class="count">GitHub</span></div>
+    <div class="badge"><span class="icon">📷</span> Instagram <span class="count">IG</span></div>
+    <div class="badge"><span class="icon">🎮</span> Steam <span class="count">Steam</span></div>
+    <div class="badge"><span class="icon">🔴</span> Reddit <span class="count">Reddit</span></div>
+    <div class="badge"><span class="icon">💬</span> Discord <span class="count">Discord</span></div>
+    <div class="badge"><span class="icon">▶️</span> YouTube <span class="count">YT</span></div>
+    <div class="badge"><span class="icon">👔</span> LinkedIn <span class="count">LinkedIn</span></div>
+    <div class="badge"><span class="icon">🎵</span> 网易云音乐 <span class="count">Netease</span></div>
+    <div class="badge"><span class="icon">📱</span> 抖音/TikTok <span class="count">Douyin</span></div>
+    <div class="badge"><span class="icon">📝</span> 掘金 <span class="count">Juejin</span></div>
+    <div class="badge"><span class="icon">Ⓜ️</span>  Medium <span class="count">Medium</span></div>
+    <div class="badge"><span class="icon">🏛️</span> 豆瓣 <span class="count">Douban</span></div>
+    <div class="badge"><span class="icon">🎯</span> 贴吧 <span class="count">Tieba</span></div>
+    <div class="badge"><span class="icon">📹</span> Twitch <span class="count">Twitch</span></div>
+    <div class="badge"><span class="icon">🧵</span>  Threads <span class="count">Threads</span></div>
+  </div>
+</div>
+</section>
+
+<!-- INSTALL -->
+<section class="container section" id="install">
+<div class="install">
+  <div class="install-card">
+    <h2>🚀 立即开始</h2>
+    <p>一行命令安装 SuperScope，开始你的数字身份探索之旅</p>
+    <div class="code-block">
+      <code>pip install superscope</code>
+      <button class="copy-btn" onclick="copyCommand(this)">复制</button>
+    </div>
+    <p style="margin-top:24px;font-size:13px;color:var(--text-muted)">
+      支持 Python 3.8+ · macOS / Linux / Windows
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<div class="container">
+<footer>
+  <p>© 2026 <a href="https://github.com/makismkuo" style="color:var(--text-muted);text-decoration:none">makismkuo</a> · 用 ❤️ 构建</p>
+  <div class="footer-links">
+    <a href="https://github.com/makismkuo/superscope" target="_blank">GitHub</a>
+    <a href="#">MIT License</a>
+    <a href="https://github.com/makismkuo/superscope/releases" target="_blank">Releases</a>
+  </div>
+</footer>
+</div>
+
+<script>
+// ===== TERMINAL ANIMATION =====
+const lines = [
+  { cls:'prompt', text:'$ ', delay:0 },
+  { cls:'code', text:'superscope scan makismkuo', delay:80 },
+  { cls:'prompt', text:'', delay:1600 },
+  { cls:'output dim', text:'━━━ SuperScope v0.1.0 ━━━', delay:2000 },
+  { cls:'output dim', text:'🌐 Initializing scan engine...', delay:2300 },
+  { cls:'output dim', text:'🎯 Target: makismkuo', delay:2600 },
+  { cls:'output dim', text:'📡 Platforms: scanning 235 targets', delay:2900 },
+  { cls:'output dim', text:'', delay:3100 },
+  { cls:'output green', text:'  ✔ 微博 / Weibo        → found  @makismkuo', delay:3300 },
+  { cls:'output green', text:'  ✔ GitHub              → found  @makismkuo', delay:3600 },
+  { cls:'output green', text:'  ✔ Bilibili / B站       → found  马老师', delay:3900 },
+  { cls:'output green', text:'  ✔ 知乎 / Zhihu        → found  @makismkuo', delay:4200 },
+  { cls:'output yellow', text:'  ⚠ 小红书 / Xiaohon..   → 需要验证码', delay:4500 },
+  { cls:'output green', text:'  ✔ 网易云音乐          → found  @makismkuo', delay:4800 },
+  { cls:'output green', text:'  ✔ Twitter/X           → found  @makismkuo', delay:5100 },
+  { cls:'output dim', text:'', delay:5300 },
+  { cls:'output cyan', text:'📊 共发现 7 个平台关联到 makismkuo', delay:5500 },
+  { cls:'output dim', text:'⏱ 扫描耗时: 2.84s', delay:5700 },
+  { cls:'output dim', text:'━━━━━━━━━━━━━━━━━━━━━', delay:5900 },
+  { cls:'prompt', text:'$ ', delay:6100 },
+  { cls:'code', text:'superscope analyze makismkuo --deep', delay:6200 },
+  { cls:'output dim', text:'', delay:7600 },
+  { cls:'output', text:'🧠 Persona Analysis — makismkuo', delay:7900 },
+  { cls:'output dim', text:'  ├── Location:    中国 · 北京', delay:8200 },
+  { cls:'output dim', text:'  ├── Interests:   AI / 开源 / 网络安全 / 游戏', delay:8500 },
+  { cls:'output dim', text:'  ├── Languages:   中文 (native) · English (fluent)', delay:8800 },
+  { cls:'output dim', text:'  ├── Platforms:   7 accounts across 235 platforms', delay:9100 },
+  { cls:'output dim', text:'  └── Confidence:  92.4%', delay:9400 },
+  { cls:'output green', text:'  ✔ 完整画像已生成 → output/persona_makismkuo.json', delay:9700 },
+  { cls:'prompt', text:'$ ', delay:10200 },
+  { cls:'code', text:'', delay:10300 },
+];
+
+const container = document.getElementById('terminal-body');
+let lineIndex = 0;
+let charIndex = 0;
+let currentEl = null;
+let isTyping = false;
+let done = false;
+
+function typeNext() {
+  if (lineIndex >= lines.length) { return; }
+  const line = lines[lineIndex];
+
+  // Blank line
+  if (line.text === '') {
+    currentEl = document.createElement('div');
+    currentEl.className = 'terminal-line ' + line.cls;
+    currentEl.style.animationDelay = '0s';
+    currentEl.innerHTML = '&nbsp;';
+    container.appendChild(currentEl);
+    lineIndex++;
+    setTimeout(typeNext, line.delay || 200);
+    return;
+  }
+
+  // If it's a prompt line with a following code line, we type them together
+  if (line.cls === 'prompt' && lineIndex + 1 < lines.length && lines[lineIndex+1].cls === 'code') {
+    const nextLine = lines[lineIndex+1];
+    const fullText = line.text + nextLine.text;
+
+    currentEl = document.createElement('div');
+    currentEl.className = 'terminal-line prompt';
+    container.appendChild(currentEl);
+
+    let i = 0;
+    const promptLen = line.text.length;
+
+    function typeChar() {
+      if (i < fullText.length) {
+        const ch = fullText.charAt(i);
+        if (i < promptLen) {
+          currentEl.innerHTML = fullText.substring(0, i + 1) + '<span class="terminal-cursor"></span>';
+        } else {
+          // After prompt, show prompt text + typed code
+          currentEl.innerHTML = line.text + fullText.substring(promptLen, i + 1) + '<span class="terminal-cursor"></span>';
+        }
+        i++;
+        const delay = i <= promptLen ? 30 : 60;
+        setTimeout(typeChar, delay);
+      } else {
+        // Done typing, show with cursor
+        currentEl.innerHTML = line.text + fullText.substring(promptLen);
+        lineIndex += 2;
+        setTimeout(typeNext, nextLine.delay || 500);
+      }
+    }
+    typeChar();
+    return;
+  }
+
+  // Regular line — just fade in
+  currentEl = document.createElement('div');
+  currentEl.className = 'terminal-line ' + line.cls;
+  currentEl.style.animationDelay = '0s';
+  currentEl.textContent = line.text;
+  container.appendChild(currentEl);
+  lineIndex++;
+  setTimeout(typeNext, line.delay || 200);
+}
+
+// ===== SCROLL ANIMATION =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+
+// ===== COPY TO CLIPBOARD =====
+function copyCommand(btn) {
+  const text = 'pip install superscope';
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ 已复制';
+    btn.style.background = '#0d9488';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#0d9488';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    btn.textContent = '✓ 已复制';
+  });
+}
+
+// ===== START =====
+window.addEventListener('load', () => {
+  setTimeout(typeNext, 600);
+});
+</script>
+</body>
+</html>
