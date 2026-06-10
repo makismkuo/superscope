@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
 import click
+import rich.box
 from rich.console import Console
 from rich.live import Live
 from rich.panel import Panel
@@ -420,13 +421,10 @@ def _display_results(
     console.print(f"  [green]Found:[/] {len(found)}  [dim]Not found:[/] {len(not_found)}  [red]Errors:[/] {len(errors)}")
 
     if out_format == "table" or out_format == "txt":
-        table = Table(title=f"Scan Results: {username}")
-        table.add_column("Platform", style="cyan", no_wrap=True)
-        table.add_column("Status", no_wrap=True)
-        table.add_column("Name", style="white")
-        table.add_column("Bio", style="dim", max_width=40)
-        table.add_column("Location", style="dim")
-        table.add_column("URL", style="blue")
+        table = Table(title=f"Scan Results: {username}", box=rich.box.SIMPLE)
+        table.add_column("Platform", style="cyan", no_wrap=True, width=15)
+        table.add_column("Status", no_wrap=True, width=12)
+        table.add_column("URL", style="blue", max_width=80)
 
         for r in results:
             d = r.get("data") or {}
@@ -439,9 +437,6 @@ def _display_results(
             table.add_row(
                 r["platform"],
                 status_str,
-                d.get("name", "") or "",
-                (d.get("bio", "") or "")[:80],
-                d.get("location", "") or "",
                 d.get("url", "") or "",
             )
 
