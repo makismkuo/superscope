@@ -1,8 +1,8 @@
 # 🔭 SuperScope
 
-**扔一个用户名，3秒扫遍全网——找到这个人在所有平台的痕迹。**
+**扔一个名字出去，三秒后你看到的是这个人在互联网上的一切。**
 
-一个名字，200+ 个平台，30 秒出结果。SuperScope 能告诉你一个用户名在哪里注册过、在哪里活跃、暴露了什么信息。查自己、查合作对象、查网友，一个命令搞定。
+一个命令，扫遍200+平台。这不是装逼——你每天在多少网站注册过，你自己都记不清。SuperScope帮你把那些账号翻出来，一个不漏。
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-black.svg)](https://www.python.org/downloads/)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -15,49 +15,28 @@ superscope scan 用户名
 
 ---
 
-## 🤯 它到底能做什么？
+## 🤯 你为什么要试一次？
 
-### 查你自己
+**查自己** — 搜你常用的用户名，看看互联网上有多少你早已遗忘的账号。你可能会发现：十年前注册的论坛还在、某个平台的个人资料挂着你的手机号、你的邮箱已经在暗网上流通了。
 
-搜一下你的常用用户名，看看在互联网上留下了多少脚印——你会发现有些账号自己都忘了。
+**查合作对象** — 群里那个"大佬"到底是谁？一个命令，扒出他的技术栈、社交圈、职业轨迹。知乎答主是不是真专家？GitHub上的star是不是刷的？三分钟出答案。
 
-```bash
-superscope scan yourname
-```
-```
-Results for yourname
-  Found: 12  Not found: 16  Errors: 2
+**查网友** — 顶着美女头像跟你聊天的，对应的微博/豆瓣/贴吧账号是什么画风？网络身份能不能对上？
 
-  github        ✓ Found     https://github.com/yourname
-  twitter       ✓ Found     https://twitter.com/yourname
-  instagram     ✓ Found     https://instagram.com/yourname
-  steam         ✓ Found     https://steamcommunity.com/id/yourname
-  ...
-```
+**查面试者** — 简历上的"全栈工程师"在GitHub上有几个项目？StackOverflow回答质量如何？技术博客多久没更新了？
 
-### 查合作对象
-
-跟你对接的人到底什么背景？一个用户名，技术栈、社交圈、职业经历全搜出来。
-
-### 查网友
-
-群里的"大佬"真货还是装的？能不能对上多平台身份？
-
-### 查邮箱泄露
-
+**查邮箱泄露** — 你的邮箱在哪些网站注册过？被数据泄露波及过没有？
 ```bash
 superscope scan youremail@gmail.com --id-type email
 ```
 
-你的邮箱在哪些网站注册过？有没有被泄露？
-
 ---
 
-## 🔥 跟同类工具比强在哪？
+## 🔥 跟同类工具比
 
 | 功能 | Maigret | SuperScope |
 |------|:-------:|:----------:|
-| HTTP 站点扫描 | ✅ 3000+ | ✅ 200+（持续增加） |
+| HTTP 站点扫描 | 3000+ | 200+（持续增加） |
 | 国内平台（微博/知乎/小红书/B站） | ❌ | ✅ Playwright 浏览器引擎 |
 | 邮箱搜索 | ❌ | ✅ Gravatar/HIBP/EmailRep/LeakCheck |
 | 用户名变体生成 | ❌ | ✅ leet/前缀/后缀/数字 |
@@ -65,9 +44,7 @@ superscope scan youremail@gmail.com --id-type email
 | 跨平台关联合并 | ❌ | ✅ 头像 hash + bio 相似度 |
 | 代理轮换 + Tor | ⚠️ | ✅ 内置自动检测 |
 | Web 可视化页面 | ❌ | ✅ FastAPI + 实时进度 |
-| 搜索结果导出 | ✅ TXT | ✅ JSON/HTML/TXT/Graph |
-
-**不是说Maigret不好**——它做了6年，3000+站点，OSINT圈标杆。SuperScope的目标不是取代，而是在它没做好的地方补上：**国内平台、浏览器引擎、AI分析、跨平台关联**。
+| 搜索结果导出 | TXT | ✅ JSON/HTML/TXT/Graph |
 
 ---
 
@@ -204,13 +181,12 @@ superscope scan user1 user2 user3
 
 ## 📄 License
 
-MIT — 随便用、随便改、随便发。
+MIT — 随便用。
 
 ---
 
+**好用的话顺手点个 ⭐，让更多人看到。** 你的 star 就是这破项目活下去的口粮。
+
 <p align="center">
-  <sub>🔭 <a href="https://github.com/makismkuo/superscope">github.com/makismkuo/superscope</a></sub>
-</p>
-<p align="center">
-  <sub>好用的话点个 ⭐，让更多人看到</sub>
+  <a href="https://github.com/makismkuo/superscope">github.com/makismkuo/superscope</a>
 </p>
