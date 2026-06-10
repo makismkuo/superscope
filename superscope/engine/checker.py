@@ -86,16 +86,17 @@ class CheckResult:
 
 
 # "Not found" text patterns used to detect missing profiles
+# These are checked against the page <title> and <h1> only,
+# not the full body, to avoid false positives.
 _NOT_FOUND_INDICATORS = [
-    "not found", "page not found", "doesn't exist", "no user",
-    "user not found", "404", "this page doesn't exist",
+    "not found", "page not found", "user not found",
     "profile not found", "could not be found",
     "该用户不存在", "用户不存在", "页面不存在", "找不到",
     "没有找到", "无法找到", "不存在",
 ]
 
 
-def _default_http_checker(url_template: str) -> "PlatformChecker":
+def _default_http_checker(platform: str, url_template: str) -> "PlatformChecker":
     """Factory: create a generic HTTP GET checker from a URL template.
 
     The checker builds ``url_template.format(username=username)``, makes an
@@ -116,7 +117,7 @@ def _default_http_checker(url_template: str) -> "PlatformChecker":
         except Exception as exc:
             elapsed = (time.monotonic() - start) * 1000
             return CheckResult(
-                platform="",
+                platform=platform,
                 username=username,
                 status=CheckStatus.ERROR,
                 error_message=str(exc),
@@ -128,31 +129,39 @@ def _default_http_checker(url_template: str) -> "PlatformChecker":
         data: Optional[ExtractedData] = None
 
         if status_code == 200:
-            body = resp.text.lower()
-            # Scrape basic OpenGraph / meta info
+            # Check only <title> and <h1> for "not found" indicators
+            relevant_text = ""
+            if "<title>" in resp.text:
+                s = resp.text.index("<title>") + 7
+                e = resp.text.index("</title>", s)
+                relevant_text += resp.text[s:e].lower() + " "
+            if "<h1" in resp.text:
+                s = resp.text.index("<h1")
+                e = resp.text.index("</h1>", s)
+                # Remove HTML tags inside h1
+                h1_text = resp.text[s:e]
+                while ">" in h1_text:
+                    h1_text = h1_text[h1_text.index(">") + 1:]
+                relevant_text += h1_text.lower()
             found_not_found = any(
-                ind in body for ind in _NOT_FOUND_INDICATORS
+                ind in relevant_text for ind in _NOT_FOUND_INDICATORS
             )
-            if not found_not_found:
+            # Also check if username appears in title (strong signal)
+            username_in_title = username.lower() in relevant_text if relevant_text else False
+            if not found_not_found or username_in_title:
                 data = ExtractedData(url=url, extra={"url": url})
-            status = CheckStatus.NOT_FOUND if found_not_found else CheckStatus.FOUND
+            status = CheckStatus.NOT_FOUND if (found_not_found and not username_in_title) else CheckStatus.FOUND
+        elif status_code in (403,):
+            status = CheckStatus.ERROR
         elif status_code in (404, 410):
             status = CheckStatus.NOT_FOUND
         elif status_code in (429, 503):
             status = CheckStatus.ERROR
-            data = CheckResult(
-                platform="",
-                username=username,
-                status=CheckStatus.ERROR,
-                error_message=f"Rate limited / unavailable (HTTP {status_code})",
-                http_status=status_code,
-                response_time_ms=elapsed,
-            )
         else:
             status = CheckStatus.NOT_FOUND
 
         return CheckResult(
-            platform="",
+            platform=platform,
             username=username,
             status=status,
             data=data,
@@ -224,7 +233,7 @@ class CheckerEngine:
                 continue  # skip browser-only platforms
             if name in self._checkers:
                 continue  # already has a custom checker
-            self._checkers[name] = _default_http_checker(url_tpl)
+            self._checkers[name] = _default_http_checker(name, url_tpl)
             count += 1
         return count
 
