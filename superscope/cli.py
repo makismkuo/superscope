@@ -361,8 +361,9 @@ async def _run_scan_async(
                     if verbose:
                         console.print(f"    [red]✗[/] {plat:<20} Playwright not installed")
 
-    # Correlate
+    # Correlate (only if we have found results)
     correlations: List[Dict[str, Any]] = []
+    found_results = [r for r in all_results if r["status"] == "found"]
     try:
         from superscope.analysis.correlator import Correlator
         from superscope.engine.checker import CheckResult
@@ -413,10 +414,22 @@ async def _run_scan_async(
             if verbose:
                 console.print(f"[dim]AI analysis error: {exc}[/]")
 
+    # Persona analysis
+    persona = None
+    if found_results:
+        try:
+            from superscope.analysis.persona import PersonaAnalyzer
+            analyzer = PersonaAnalyzer()
+            persona = analyzer.analyze(all_results)
+        except Exception as exc:
+            if verbose:
+                console.print(f"[dim]Persona analysis error: {exc}[/]")
+
     return {
         "username": username,
         "results": all_results,
         "ai_report": ai_report,
+        "persona": persona,
         "correlations": correlations,
         "scanned_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "total_platforms": len(http_platforms) + len(browser_platforms),
@@ -470,6 +483,31 @@ def _display_results(
                     f"  [teal]{' ↔ '.join(c['platforms'][:5])}[/] "
                     f"[dim](confidence: {c['confidence']}, matched by: {', '.join(c['matched_by'])})[/]"
                 )
+
+        # Persona analysis
+        persona = scan_data.get("persona")
+        if persona:
+            dp = persona.get("dominant_persona", {})
+            console.print(f"\n[bold]👤 人物画像[/]")
+            console.print(f"  [teal]{dp.get('type', '?')}[/]")
+            console.print(f"  [dim]{dp.get('description', '')}[/]")
+            if dp.get("matched_platforms"):
+                console.print(f"  [dim]依据: {', '.join(dp['matched_platforms'][:6])}[/]")
+            profile = persona.get("profile", {})
+            parts = []
+            if profile.get("possible_names"):
+                parts.append(f"姓名: {', '.join(profile['possible_names'][:3])}")
+            if profile.get("possible_locations"):
+                parts.append(f"所在地: {', '.join(profile['possible_locations'][:3])}")
+            if profile.get("emails"):
+                parts.append(f"邮箱: {', '.join(profile['emails'][:3])}")
+            if profile.get("bios"):
+                parts.append(f"简介: {profile['bios'][0][:80]}")
+            if parts:
+                console.print(f"  {' | '.join(parts)}")
+            if len(persona.get("personas", [])) > 1:
+                others = persona["personas"][1:4]
+                console.print(f"  [dim]其他可能类型: {' | '.join(p['type'] for p in others)}[/]")
 
         # AI report
         ai_report = scan_data.get("ai_report")
