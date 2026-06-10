@@ -23,23 +23,6 @@ superscope scan 用户名
 
 ---
 
-## 🚀 为什么是 SuperScope 而不是别的？
-
-| 场景 | Maigret（同类工具） | SuperScope（就是不一样） |
-|------|:------:|:----------:|
-| ⏱ 安装速度 | 慢，依赖一堆 | **3秒 pip install** |
-| 🇨🇳 微博/知乎/小红书/B站 | ❌ 不支持 | ✅ **浏览器引擎直扫，国内平台全覆盖** |
-| 📧 搜邮箱 | ❌ 不支持 | ✅ Gravatar/HIBP/EmailRep/LeakCheck |
-| 📱 搜手机号 | ❌ 不支持 | ✅ TrueCaller 集成 |
-| 🎮 搜Steam ID | ❌ 不支持 | ✅ Steam Profile 查 |
-| 🤖 AI分析报告 | ❌ 没有 | ✅ LLM自动出人物档案 |
-| 🕸 Web UI可视化 | ❌ 纯终端 | ✅ 网页界面实时看结果 |
-| 🧠 用户名变体自动生成 | ❌ 没有 | ✅ leet/前缀/后缀/数字一网打尽 |
-| 🕵️ 代理/Tor内置 | ⚠️ 手动配置 | ✅ 自动检测开箱即用 |
-| 📄 导出格式 | 只有TXT | ✅ JSON/HTML/TXT/Graph/网页 |
-
-**一句话：Maigret能扫的SuperScope都能扫，Maigret扫不了的SuperScope也能扫。**
-
 ---
 
 ## ⚡ 3秒上手
