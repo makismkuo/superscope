@@ -2,6 +2,10 @@
 
 **扔一个名字上去，三秒后你会看到这个人在互联网上的一切。**
 
+<p align="center">
+  <img src="docs/preview.png" alt="SuperScope 预览" width="800">
+</p>
+
 一键扫遍 200+ 国内+国外平台。输入用户名、邮箱、手机号或 Steam ID，系统自动帮你找出所有关联账号。
 
 ```bash
