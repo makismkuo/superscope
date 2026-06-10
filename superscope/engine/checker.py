@@ -308,6 +308,7 @@ class CheckerEngine:
         try:
             async with self._build_client() as client:
                 result = await checker(username, client)
+                result.platform = platform
                 return result
         except httpx.TimeoutException as exc:
             return await self._handle_error(
