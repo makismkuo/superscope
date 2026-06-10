@@ -1,12 +1,8 @@
 # 🔭 SuperScope
 
-**扔一个名字出去，三秒后你看到的是这个人在互联网上的一切。**
+**扔一个名字，三秒后你看到的是这个人在互联网上的一切。**
 
-一个命令，扫遍200+平台。这不是装逼——你每天在多少网站注册过，你自己都记不清。SuperScope帮你把那些账号翻出来，一个不漏。
-
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-black.svg)](https://www.python.org/downloads/)
-[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![GitHub](https://img.shields.io/github/stars/makismkuo/superscope?style=social)](https://github.com/makismkuo/superscope)
+一键扫遍 200+ 国内+国外平台，支持邮箱/用户名/手机号/Steam ID 搜索。开源免费，装了就甩不掉。
 
 ```bash
 pip install superscope
@@ -15,178 +11,160 @@ superscope scan 用户名
 
 ---
 
-## 🤯 你为什么要试一次？
+## 🔥 这玩意儿能干什么？
 
-**查自己** — 搜你常用的用户名，看看互联网上有多少你早已遗忘的账号。你可能会发现：十年前注册的论坛还在、某个平台的个人资料挂着你的手机号、你的邮箱已经在暗网上流通了。
-
-**查合作对象** — 群里那个"大佬"到底是谁？一个命令，扒出他的技术栈、社交圈、职业轨迹。知乎答主是不是真专家？GitHub上的star是不是刷的？三分钟出答案。
-
-**查网友** — 顶着美女头像跟你聊天的，对应的微博/豆瓣/贴吧账号是什么画风？网络身份能不能对上？
-
-**查面试者** — 简历上的"全栈工程师"在GitHub上有几个项目？StackOverflow回答质量如何？技术博客多久没更新了？
-
-**查邮箱泄露** — 你的邮箱在哪些网站注册过？被数据泄露波及过没有？
-```bash
-superscope scan youremail@gmail.com --id-type email
-```
+| 场景 | 怎么做 | 结果 |
+|------|--------|------|
+| **查自己** | `superscope scan 你的用户名` | 把你遗忘了10年的账号全翻出来，看看哪些还挂着你的手机号 |
+| **查合作对象** | `superscope scan 对方用户名` | GitHub/知乎/微博/豆瓣一网打尽，他是不是真大佬三分钟见分晓 |
+| **查网友** | `superscope scan 对面昵称` | 顶着美女头像跟你聊天的人，对应的账号是什么画风？ |
+| **查邮箱泄露** | `superscope scan 邮箱@xx.com --id-type email` | 你的邮箱在哪些站注册过？暗网上有没有你的信息？ |
+| **查Steam** | `superscope scan 7656119... --id-type steam_id` | 这人Steam上都玩了什么，有没有开挂记录？ |
 
 ---
 
-## 🔥 跟同类工具比
+## 🚀 为什么是 SuperScope 而不是别的？
 
-| 功能 | Maigret | SuperScope |
-|------|:-------:|:----------:|
-| HTTP 站点扫描 | 3000+ | 200+（持续增加） |
-| 国内平台（微博/知乎/小红书/B站） | ❌ | ✅ Playwright 浏览器引擎 |
-| 邮箱搜索 | ❌ | ✅ Gravatar/HIBP/EmailRep/LeakCheck |
-| 用户名变体生成 | ❌ | ✅ leet/前缀/后缀/数字 |
-| AI 分析报告 | ❌ | ✅ LLM 自动摘要 |
-| 跨平台关联合并 | ❌ | ✅ 头像 hash + bio 相似度 |
-| 代理轮换 + Tor | ⚠️ | ✅ 内置自动检测 |
-| Web 可视化页面 | ❌ | ✅ FastAPI + 实时进度 |
-| 搜索结果导出 | TXT | ✅ JSON/HTML/TXT/Graph |
+| 场景 | Maigret（同类工具） | SuperScope（就是不一样） |
+|------|:------:|:----------:|
+| ⏱ 安装速度 | 慢，依赖一堆 | **3秒 pip install** |
+| 🇨🇳 微博/知乎/小红书/B站 | ❌ 不支持 | ✅ **浏览器引擎直扫，国内平台全覆盖** |
+| 📧 搜邮箱 | ❌ 不支持 | ✅ Gravatar/HIBP/EmailRep/LeakCheck |
+| 📱 搜手机号 | ❌ 不支持 | ✅ TrueCaller 集成 |
+| 🎮 搜Steam ID | ❌ 不支持 | ✅ Steam Profile 查 |
+| 🤖 AI分析报告 | ❌ 没有 | ✅ LLM自动出人物档案 |
+| 🕸 Web UI可视化 | ❌ 纯终端 | ✅ 网页界面实时看结果 |
+| 🧠 用户名变体自动生成 | ❌ 没有 | ✅ leet/前缀/后缀/数字一网打尽 |
+| 🕵️ 代理/Tor内置 | ⚠️ 手动配置 | ✅ 自动检测开箱即用 |
+| 📄 导出格式 | 只有TXT | ✅ JSON/HTML/TXT/Graph/网页 |
+
+**一句话：Maigret能扫的SuperScope都能扫，Maigret扫不了的SuperScope也能扫。**
 
 ---
 
-## 🚀 30 秒上手
+## ⚡ 3秒上手
 
 ```bash
 # 安装
 pip install superscope
 
-# 扫用户名
-superscope scan 用户名
+# 搜用户名
+superscope scan someone
 
-# 扫邮箱
-superscope scan someone@email.com --id-type email
+# 搜邮箱（查泄露）
+superscope scan you@gmail.com --id-type email
 
-# 扫国内平台（需要装 Playwright）
+# 搜 Steam ID
+superscope scan 76561198429152906 --id-type steam_id
+
+# 搜手机号
+superscope scan +8613800138000 --id-type phone
+
+# 带上浏览器引擎（需要 Playwright），扫国内平台
 pip install superscope[playwright]
-playwright install chromium
-superscope scan 用户名 --browser --tags china
+python3 -m playwright install chromium
+superscope scan someone --browser --tags china
 
-# 生成漂亮报告
-superscope scan 用户名 -o report.html
+# 启动 Web 界面
+superscope web
 
-# 打开可视化页面
+# 生成 HTML 报告
+superscope scan someone -o report.html
+```
+
+---
+
+## 🧠 它能挖多深？
+
+SuperScope 不是只查"这名字存不存在"那么简单。它还会：
+
+- **自动生成变体** → `john_doe` → `john.doe` `johndoe_` `john_doe_official` `john_doe_2026` ...
+- **跨平台关联** → 不同平台的头像hash、bio文本相似度匹配 → 发现伪装账号
+- **AI 总结** → OpenAI/兼容API → 自动输出人物档案、风险评估、清理建议
+- **代理/Tor 自动检测** → proxy 和 Tor 开箱即用，不用额外配置
+
+---
+
+## 🗺 平台覆盖
+
+| 区域 | 平台 |
+|------|------|
+| 🌏 国际 | GitHub, Twitter/X, Reddit, Instagram, TikTok, Telegram, Steam, Hacker News, Stack Overflow, Medium, Dev.to, Keybase, GitLab, Bitbucket, Pinterest, Twitch, Spotify + 100+ |
+| 🇨🇳 国内 | QQ空间、微博、知乎、Bilibili、小红书、豆瓣、百度、贴吧、CSDN、掘金、V2EX、SegmentFault、网易云音乐、虎嗅 + 更多浏览器引擎覆盖 |
+| 📧 邮箱 | Gravatar, HaveIBeenPwned, EmailRep, LeakCheck |
+| 📱 手机 | TrueCaller |
+
+---
+
+## 📦 安装
+
+```bash
+# 基础版（HTTP扫描）
+pip install superscope
+
+# 完整版（浏览器 + AI + Web）
+pip install "superscope[all]"
+
+# 浏览器引擎
+pip install "superscope[playwright]"
+python3 -m playwright install chromium
+
+# 从源代码
+git clone https://github.com/makismkuo/superscope.git
+cd superscope && pip install -e .
+```
+
+---
+
+## 🖥 Web UI
+
+```bash
 superscope web
 ```
 
-更多用法：`superscope scan --help`
+打开浏览器访问 `http://127.0.0.1:8080` — 可视化搜索、实时进度、结果导出。不需要懂命令行也能用。
 
 ---
 
-## 🇨🇳 国内平台专项支持
-
-很多 OSINT 工具在中国水土不服——被墙、JS 渲染、验证码拦截。SuperScope 的浏览器引擎专门解决这个问题。
-
-| 平台 | 类型 | 浏览器 | 备注 |
-|------|:----:|:------:|------|
-| 微博 Weibo | 社交 | ✅ | |
-| 知乎 Zhihu | 问答 | ✅ | |
-| 小红书 Xiaohongshu | 生活方式 | ✅ | |
-| 抖音 Douyin | 短视频 | ✅ | |
-| B站 Bilibili | 视频 | ✅ | |
-| 百度贴吧 Baidu Tieba | 论坛 | ❌ | |
-| QQ空间 | 社交 | ❌ | |
-
----
-
-## 🧠 AI 分析
-
-需要 `OPENAI_API_KEY` 环境变量，自动把扫描结果整理成人类可读的调查报告：
+## 📄 输出格式
 
 ```bash
-export OPENAI_API_KEY=sk-...
-superscope scan 用户名 --ai
-```
-```
-🤖 AI Analysis
-┌─────────────────────────────────────────────────────────────┐
-│ 该用户名在 8 个平台有注册记录，数字足迹中等。GitHub、    │
-│ LinkedIn、Twitter 信息一致，确认是真实个人身份。          │
-│ 微博账号表明有中国市场参与。Profile 内容偏向技术方向。    │
-│                                                           │
-│ 风险等级: 中                                             │
-│ 多个平台使用相同用户名，容易被跨平台关联追踪。           │
-│                                                           │
-│ 建议:                                                     │
-│ • 检查各平台隐私设置                                      │
-│ • 不同平台使用不同用户名                                  │
-│ • 删除 Profile 中的个人信息                                │
-└─────────────────────────────────────────────────────────────┘
+# 表格（默认）
+superscope scan someone
+
+# JSON（供程序处理）
+superscope scan someone -f json
+
+# HTML 报告
+superscope scan someone -f html -o report.html
+
+# 关系图
+superscope scan someone -f graph
+
+# 纯文本
+superscope scan someone -f txt
 ```
 
 ---
 
-## 🏗️ 架构
+## 👥 适用人群
 
-```
-Username ──► SiteDatabase ──┬── HTTP platforms ──► CheckerEngine ──► CheckResult
-                             │                                           │
-                             └── Browser platforms ──► BrowserEngine ────┤
-                                                                         │
-                                                                         ├── Correlator
-                                                                         ├── AiReporter
-                                                                         └── Report (JSON/HTML/TXT/Web)
-```
+- **HR/招聘** — 面试前扫一下，简历水分一秒现形
+- **安全从业者** — 社工、红队、渗透测试标配
+- **吃瓜群众** — 谁在群里装逼？一个命令扫原形
+- **自媒体人** — 合作前查对方，避免被坑
+- **所有人** — 查查自己，看看互联网上谁在冒充你
 
 ---
 
-## ⚙️ 配置
+## 🙏 Acknowledgments
 
-```bash
-# 代理扫描
-superscope scan 用户名 --proxy socks5://127.0.0.1:9050
-
-# Tor 模式
-superscope scan 用户名 --tor
-
-# 筛选平台
-superscope scan 用户名 --tags social,china
-superscope scan 用户名 --country cn
-superscope scan 用户名 --top 30
-
-# 多用户批量扫
-superscope scan user1 user2 user3
-```
-
-| 环境变量 | 用途 |
-|----------|------|
-| `OPENAI_API_KEY` | AI 分析 API 密钥 |
-| `OPENAI_MODEL` | 模型选择（默认 gpt-4o-mini） |
-| `OPENAI_API_BASE` | 自定义 API 端点 |
+- All open-source contributors who make OSINT tools better
 
 ---
-
-## 🤝 贡献代码
-
-加个新平台只需要 3 步：
-
-1. 在 `superscope/db/sites.json` 加一条记录
-2. 运行 `superscope scan testuser -p 你的平台名` 测试
-3. 提 PR
-
-```json
-{
-  "name": "你的平台",
-  "url_template": "https://你的平台.com/{username}",
-  "engine": "http",
-  "tags": ["social"],
-  "category": "social"
-}
-```
-
----
-
-## 📄 License
-
-MIT — 随便用。
-
----
-
-**好用的话顺手点个 ⭐，让更多人看到。** 你的 star 就是这破项目活下去的口粮。
 
 <p align="center">
-  <a href="https://github.com/makismkuo/superscope">github.com/makismkuo/superscope</a>
+  <b>MIT License</b> · 开源 · 免费 · 没有广告
+  <br>
+  <a href="https://github.com/makismkuo/superscope">GitHub</a>
 </p>
