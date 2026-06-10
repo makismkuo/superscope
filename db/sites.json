@@ -1,0 +1,1216 @@
+[
+  {
+    "name": "GitHub",
+    "url_template": "https://github.com/{username}",
+    "method": "http",
+    "tags": ["coding", "social", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true,
+    "extractors": {
+      "profile": { "selector": "meta[name=\"user-login\"]", "attribute": "content" },
+      "bio": { "selector": "div[itemprop=\"description\"]", "attribute": "text" }
+    }
+  },
+  {
+    "name": "GitLab",
+    "url_template": "https://gitlab.com/{username}",
+    "method": "http",
+    "tags": ["coding", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Twitter / X",
+    "url_template": "https://x.com/{username}",
+    "method": "browser",
+    "tags": ["social", "microblogging"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Instagram",
+    "url_template": "https://www.instagram.com/{username}/",
+    "method": "browser",
+    "tags": ["social", "photography"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Facebook",
+    "url_template": "https://www.facebook.com/{username}",
+    "method": "browser",
+    "tags": ["social"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Reddit",
+    "url_template": "https://www.reddit.com/user/{username}",
+    "method": "http",
+    "tags": ["social", "forums", "discussion"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "YouTube",
+    "url_template": "https://www.youtube.com/@{username}",
+    "method": "http",
+    "tags": ["video", "social", "media"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Twitch",
+    "url_template": "https://www.twitch.tv/{username}",
+    "method": "http",
+    "tags": ["streaming", "gaming", "video"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "TikTok",
+    "url_template": "https://www.tiktok.com/@{username}",
+    "method": "browser",
+    "tags": ["social", "video", "short-form"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Steam",
+    "url_template": "https://steamcommunity.com/id/{username}",
+    "method": "http",
+    "tags": ["gaming", "social"],
+    "country": "us",
+    "category": "gaming",
+    "enabled": true
+  },
+  {
+    "name": "Discord",
+    "url_template": "https://discord.com/users/{username}",
+    "method": "http",
+    "tags": ["chat", "social", "gaming"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Telegram",
+    "url_template": "https://t.me/{username}",
+    "method": "http",
+    "tags": ["chat", "messaging", "social"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Medium",
+    "url_template": "https://medium.com/@{username}",
+    "method": "http",
+    "tags": ["blogging", "writing", "social"],
+    "country": "us",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "Dev.to",
+    "url_template": "https://dev.to/{username}",
+    "method": "http",
+    "tags": ["coding", "blogging", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Stack Overflow",
+    "url_template": "https://stackoverflow.com/users/{username}",
+    "method": "http",
+    "tags": ["coding", "q&a", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Hacker News",
+    "url_template": "https://news.ycombinator.com/user?id={username}",
+    "method": "http",
+    "tags": ["news", "tech", "discussion"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Product Hunt",
+    "url_template": "https://www.producthunt.com/@{username}",
+    "method": "http",
+    "tags": ["products", "tech", "startup"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "LinkedIn",
+    "url_template": "https://www.linkedin.com/in/{username}",
+    "method": "browser",
+    "tags": ["professional", "social", "career"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Pinterest",
+    "url_template": "https://www.pinterest.com/{username}/",
+    "method": "http",
+    "tags": ["social", "inspiration", "visual"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Flickr",
+    "url_template": "https://www.flickr.com/people/{username}/",
+    "method": "http",
+    "tags": ["photography", "social"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Vimeo",
+    "url_template": "https://vimeo.com/{username}",
+    "method": "http",
+    "tags": ["video", "media"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Dribbble",
+    "url_template": "https://dribbble.com/{username}",
+    "method": "http",
+    "tags": ["design", "portfolio", "creative"],
+    "country": "us",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "Behance",
+    "url_template": "https://www.behance.net/{username}",
+    "method": "http",
+    "tags": ["design", "portfolio", "creative"],
+    "country": "us",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "SoundCloud",
+    "url_template": "https://soundcloud.com/{username}",
+    "method": "http",
+    "tags": ["music", "audio", "social"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Spotify",
+    "url_template": "https://open.spotify.com/user/{username}",
+    "method": "http",
+    "tags": ["music", "streaming"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Last.fm",
+    "url_template": "https://www.last.fm/user/{username}",
+    "method": "http",
+    "tags": ["music", "scrobbling", "social"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Goodreads",
+    "url_template": "https://www.goodreads.com/{username}",
+    "method": "http",
+    "tags": ["books", "reading", "social"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Archive.org",
+    "url_template": "https://archive.org/details/@{username}",
+    "method": "http",
+    "tags": ["archive", "digital", "library"],
+    "country": "us",
+    "category": "reference",
+    "enabled": true
+  },
+  {
+    "name": "Wikipedia",
+    "url_template": "https://en.wikipedia.org/wiki/User:{username}",
+    "method": "http",
+    "tags": ["reference", "wiki", "knowledge"],
+    "country": "us",
+    "category": "reference",
+    "enabled": true
+  },
+  {
+    "name": "Wikimedia",
+    "url_template": "https://commons.wikimedia.org/wiki/User:{username}",
+    "method": "http",
+    "tags": ["media", "wiki", "reference"],
+    "country": "us",
+    "category": "reference",
+    "enabled": true
+  },
+  {
+    "name": "Keybase",
+    "url_template": "https://keybase.io/{username}",
+    "method": "http",
+    "tags": ["security", "crypto", "identity"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "BitBucket",
+    "url_template": "https://bitbucket.org/{username}/",
+    "method": "http",
+    "tags": ["coding", "development", "git"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "SourceForge",
+    "url_template": "https://sourceforge.net/u/{username}/",
+    "method": "http",
+    "tags": ["coding", "development", "open-source"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Docker Hub",
+    "url_template": "https://hub.docker.com/u/{username}",
+    "method": "http",
+    "tags": ["containers", "devops", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "npm",
+    "url_template": "https://www.npmjs.com/~{username}",
+    "method": "http",
+    "tags": ["javascript", "packages", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "PyPI",
+    "url_template": "https://pypi.org/user/{username}/",
+    "method": "http",
+    "tags": ["python", "packages", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "RubyGems",
+    "url_template": "https://rubygems.org/profiles/{username}",
+    "method": "http",
+    "tags": ["ruby", "packages", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Crates.io",
+    "url_template": "https://crates.io/users/{username}",
+    "method": "http",
+    "tags": ["rust", "packages", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Hugging Face",
+    "url_template": "https://huggingface.co/{username}",
+    "method": "http",
+    "tags": ["ai", "ml", "models", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Kaggle",
+    "url_template": "https://www.kaggle.com/{username}",
+    "method": "http",
+    "tags": ["data-science", "ml", "competition"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Replit",
+    "url_template": "https://replit.com/@{username}",
+    "method": "http",
+    "tags": ["coding", "ide", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "CodePen",
+    "url_template": "https://codepen.io/{username}",
+    "method": "http",
+    "tags": ["coding", "frontend", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Glitch",
+    "url_template": "https://glitch.com/@{username}",
+    "method": "http",
+    "tags": ["coding", "development", "prototyping"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "HackerOne",
+    "url_template": "https://hackerone.com/{username}",
+    "method": "http",
+    "tags": ["security", "bug-bounty", "hacking"],
+    "country": "us",
+    "category": "security",
+    "enabled": true
+  },
+  {
+    "name": "Bugcrowd",
+    "url_template": "https://bugcrowd.com/{username}",
+    "method": "http",
+    "tags": ["security", "bug-bounty", "hacking"],
+    "country": "us",
+    "category": "security",
+    "enabled": true
+  },
+  {
+    "name": "TryHackMe",
+    "url_template": "https://tryhackme.com/p/{username}",
+    "method": "http",
+    "tags": ["security", "training", "hacking"],
+    "country": "us",
+    "category": "security",
+    "enabled": true
+  },
+  {
+    "name": "Hack The Box",
+    "url_template": "https://app.hackthebox.com/users/{username}",
+    "method": "http",
+    "tags": ["security", "training", "hacking"],
+    "country": "us",
+    "category": "security",
+    "enabled": true
+  },
+  {
+    "name": "Mastodon",
+    "url_template": "https://mastodon.social/@{username}",
+    "method": "http",
+    "tags": ["social", "fediverse", "microblogging"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Bluesky",
+    "url_template": "https://bsky.app/profile/{username}",
+    "method": "http",
+    "tags": ["social", "microblogging", "decentralized"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Imgur",
+    "url_template": "https://imgur.com/user/{username}",
+    "method": "http",
+    "tags": ["image", "social", "media"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Unsplash",
+    "url_template": "https://unsplash.com/@{username}",
+    "method": "http",
+    "tags": ["photography", "images", "creative"],
+    "country": "us",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "500px",
+    "url_template": "https://500px.com/p/{username}",
+    "method": "http",
+    "tags": ["photography", "portfolio"],
+    "country": "us",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "DeviantArt",
+    "url_template": "https://www.deviantart.com/{username}",
+    "method": "http",
+    "tags": ["art", "creative", "portfolio"],
+    "country": "us",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "ArtStation",
+    "url_template": "https://www.artstation.com/{username}",
+    "method": "http",
+    "tags": ["art", "portfolio", "creative"],
+    "country": "us",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "Patreon",
+    "url_template": "https://www.patreon.com/{username}",
+    "method": "http",
+    "tags": ["crowdfunding", "creative", "membership"],
+    "country": "us",
+    "category": "funding",
+    "enabled": true
+  },
+  {
+    "name": "Ko-fi",
+    "url_template": "https://ko-fi.com/{username}",
+    "method": "http",
+    "tags": ["crowdfunding", "donation", "creative"],
+    "country": "us",
+    "category": "funding",
+    "enabled": true
+  },
+  {
+    "name": "Buy Me a Coffee",
+    "url_template": "https://www.buymeacoffee.com/{username}",
+    "method": "http",
+    "tags": ["crowdfunding", "donation", "creative"],
+    "country": "us",
+    "category": "funding",
+    "enabled": true
+  },
+  {
+    "name": "Fiverr",
+    "url_template": "https://www.fiverr.com/{username}",
+    "method": "http",
+    "tags": ["freelance", "services", "marketplace"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Upwork",
+    "url_template": "https://www.upwork.com/freelancers/~{username}",
+    "method": "http",
+    "tags": ["freelance", "professional", "services"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Freelancer",
+    "url_template": "https://www.freelancer.com/u/{username}",
+    "method": "http",
+    "tags": ["freelance", "professional", "services"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Trello",
+    "url_template": "https://trello.com/{username}",
+    "method": "http",
+    "tags": ["productivity", "project-management"],
+    "country": "us",
+    "category": "productivity",
+    "enabled": true
+  },
+  {
+    "name": "Notion",
+    "url_template": "https://www.notion.so/{username}",
+    "method": "http",
+    "tags": ["productivity", "notes", "wiki"],
+    "country": "us",
+    "category": "productivity",
+    "enabled": true
+  },
+  {
+    "name": "Hashnode",
+    "url_template": "https://hashnode.com/@{username}",
+    "method": "http",
+    "tags": ["blogging", "development", "writing"],
+    "country": "us",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "Substack",
+    "url_template": "https://substack.com/@{username}",
+    "method": "http",
+    "tags": ["blogging", "newsletter", "writing"],
+    "country": "us",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "Quora",
+    "url_template": "https://www.quora.com/profile/{username}",
+    "method": "http",
+    "tags": ["q&a", "knowledge", "social"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Slideshare",
+    "url_template": "https://www.slideshare.net/{username}",
+    "method": "http",
+    "tags": ["presentations", "professional", "education"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "ResearchGate",
+    "url_template": "https://www.researchgate.net/profile/{username}",
+    "method": "http",
+    "tags": ["research", "academic", "science"],
+    "country": "us",
+    "category": "academic",
+    "enabled": true
+  },
+  {
+    "name": "Google Scholar",
+    "url_template": "https://scholar.google.com/citations?user={username}",
+    "method": "http",
+    "tags": ["academic", "research", "citations"],
+    "country": "us",
+    "category": "academic",
+    "enabled": true
+  },
+  {
+    "name": "ORCID",
+    "url_template": "https://orcid.org/{username}",
+    "method": "http",
+    "tags": ["academic", "identity", "research"],
+    "country": "us",
+    "category": "academic",
+    "enabled": true
+  },
+  {
+    "name": "Codewars",
+    "url_template": "https://www.codewars.com/users/{username}",
+    "method": "http",
+    "tags": ["coding", "challenges", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "LeetCode",
+    "url_template": "https://leetcode.com/{username}/",
+    "method": "http",
+    "tags": ["coding", "challenges", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "HackerRank",
+    "url_template": "https://www.hackerrank.com/{username}",
+    "method": "http",
+    "tags": ["coding", "challenges", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Codeforces",
+    "url_template": "https://codeforces.com/profile/{username}",
+    "method": "http",
+    "tags": ["coding", "competitive", "development"],
+    "country": "ru",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "TopCoder",
+    "url_template": "https://www.topcoder.com/members/{username}",
+    "method": "http",
+    "tags": ["coding", "competitive", "development"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Weibo",
+    "url_template": "https://weibo.com/u/{username}",
+    "method": "browser",
+    "tags": ["social", "microblogging"],
+    "country": "cn",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "WeChat",
+    "url_template": "",
+    "method": "browser",
+    "tags": ["messaging", "social", "chat"],
+    "country": "cn",
+    "category": "social",
+    "enabled": true,
+    "platform_only": true
+  },
+  {
+    "name": "Zhihu",
+    "url_template": "https://www.zhihu.com/people/{username}",
+    "method": "browser",
+    "tags": ["q&a", "knowledge", "social"],
+    "country": "cn",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Bilibili",
+    "url_template": "https://space.bilibili.com/{username}",
+    "method": "http",
+    "tags": ["video", "streaming", "anime"],
+    "country": "cn",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Douban",
+    "url_template": "https://www.douban.com/people/{username}/",
+    "method": "http",
+    "tags": ["social", "books", "movies", "music"],
+    "country": "cn",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Xiaohongshu",
+    "url_template": "https://www.xiaohongshu.com/user/profile/{username}",
+    "method": "browser",
+    "tags": ["social", "lifestyle", "shopping"],
+    "country": "cn",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Jianshu",
+    "url_template": "https://www.jianshu.com/u/{username}",
+    "method": "http",
+    "tags": ["blogging", "writing", "publishing"],
+    "country": "cn",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "CSDN",
+    "url_template": "https://blog.csdn.net/{username}",
+    "method": "http",
+    "tags": ["coding", "blogging", "development"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Juejin",
+    "url_template": "https://juejin.cn/user/{username}",
+    "method": "http",
+    "tags": ["coding", "blogging", "development"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "SegmentFault",
+    "url_template": "https://segmentfault.com/u/{username}",
+    "method": "http",
+    "tags": ["coding", "q&a", "development"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "V2EX",
+    "url_template": "https://www.v2ex.com/member/{username}",
+    "method": "http",
+    "tags": ["tech", "forums", "discussion"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Taobao",
+    "url_template": "",
+    "method": "browser",
+    "tags": ["shopping", "ecommerce"],
+    "country": "cn",
+    "category": "shopping",
+    "enabled": true,
+    "platform_only": true
+  },
+  {
+    "name": "JD.com",
+    "url_template": "",
+    "method": "browser",
+    "tags": ["shopping", "ecommerce"],
+    "country": "cn",
+    "category": "shopping",
+    "enabled": true,
+    "platform_only": true
+  },
+  {
+    "name": "Dianping",
+    "url_template": "https://www.dianping.com/member/{username}",
+    "method": "browser",
+    "tags": ["reviews", "local", "lifestyle"],
+    "country": "cn",
+    "category": "lifestyle",
+    "enabled": true
+  },
+  {
+    "name": "Meituan",
+    "url_template": "",
+    "method": "browser",
+    "tags": ["delivery", "local", "lifestyle"],
+    "country": "cn",
+    "category": "lifestyle",
+    "enabled": true,
+    "platform_only": true
+  },
+  {
+    "name": "36Kr",
+    "url_template": "https://36kr.com/user/{username}",
+    "method": "http",
+    "tags": ["news", "tech", "startup"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Huxiu",
+    "url_template": "https://www.huxiu.com/member/{username}",
+    "method": "http",
+    "tags": ["news", "tech", "business"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Netease Cloud Music",
+    "url_template": "https://music.163.com/user/home?id={username}",
+    "method": "http",
+    "tags": ["music", "streaming", "audio"],
+    "country": "cn",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "QQ Music",
+    "url_template": "https://y.qq.com/n/ryqq/profile/{username}",
+    "method": "browser",
+    "tags": ["music", "streaming", "audio"],
+    "country": "cn",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Zhihu Column",
+    "url_template": "https://zhuanlan.zhihu.com/{username}",
+    "method": "http",
+    "tags": ["blogging", "writing", "knowledge"],
+    "country": "cn",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "Baidu Tieba",
+    "url_template": "https://tieba.baidu.com/home/main?id={username}",
+    "method": "http",
+    "tags": ["forums", "social", "discussion"],
+    "country": "cn",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Tianya Club",
+    "url_template": "https://www.tianya.cn/{username}",
+    "method": "http",
+    "tags": ["forums", "social", "discussion"],
+    "country": "cn",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Hupu",
+    "url_template": "https://www.hupu.com/user/{username}",
+    "method": "http",
+    "tags": ["sports", "forums", "discussion"],
+    "country": "cn",
+    "category": "sports",
+    "enabled": true
+  },
+  {
+    "name": "GitLab (self-hosted)",
+    "url_template": "https://gitlab.com/{username}",
+    "method": "http",
+    "tags": ["coding", "development", "ci/cd"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Gitee",
+    "url_template": "https://gitee.com/{username}",
+    "method": "http",
+    "tags": ["coding", "development", "git"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "Coding.net",
+    "url_template": "https://coding.net/u/{username}",
+    "method": "http",
+    "tags": ["coding", "development", "devops"],
+    "country": "cn",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "AngelList",
+    "url_template": "https://angel.co/u/{username}",
+    "method": "http",
+    "tags": ["startup", "jobs", "investing"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Crunchbase",
+    "url_template": "https://www.crunchbase.com/person/{username}",
+    "method": "http",
+    "tags": ["business", "startup", "professional"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Polywork",
+    "url_template": "https://polywork.com/{username}",
+    "method": "http",
+    "tags": ["professional", "social", "career"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Meetup",
+    "url_template": "https://www.meetup.com/members/{username}",
+    "method": "http",
+    "tags": ["events", "social", "networking"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Eventbrite",
+    "url_template": "https://www.eventbrite.com/o/{username}",
+    "method": "http",
+    "tags": ["events", "ticketing"],
+    "country": "us",
+    "category": "events",
+    "enabled": true
+  },
+  {
+    "name": "Scribd",
+    "url_template": "https://www.scribd.com/user/{username}",
+    "method": "http",
+    "tags": ["books", "documents", "reading"],
+    "country": "us",
+    "category": "reference",
+    "enabled": true
+  },
+  {
+    "name": "Issuu",
+    "url_template": "https://issuu.com/{username}",
+    "method": "http",
+    "tags": ["publishing", "documents", "portfolio"],
+    "country": "us",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "Gravatar",
+    "url_template": "https://en.gravatar.com/{username}",
+    "method": "http",
+    "tags": ["avatar", "identity", "profile"],
+    "country": "us",
+    "category": "tech",
+    "enabled": true
+  },
+  {
+    "name": "About.me",
+    "url_template": "https://about.me/{username}",
+    "method": "http",
+    "tags": ["portfolio", "bio", "personal"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Linktree",
+    "url_template": "https://linktr.ee/{username}",
+    "method": "http",
+    "tags": ["links", "bio", "social"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Carrd",
+    "url_template": "https://{username}.carrd.co",
+    "method": "http",
+    "tags": ["portfolio", "personal", "website"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "Wix",
+    "url_template": "https://{username}.wixsite.com/my-site",
+    "method": "http",
+    "tags": ["website", "portfolio", "business"],
+    "country": "us",
+    "category": "professional",
+    "enabled": true
+  },
+  {
+    "name": "WordPress.com",
+    "url_template": "https://{username}.wordpress.com",
+    "method": "http",
+    "tags": ["blogging", "website", "publishing"],
+    "country": "us",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "Tumblr",
+    "url_template": "https://{username}.tumblr.com",
+    "method": "http",
+    "tags": ["blogging", "social", "microblogging"],
+    "country": "us",
+    "category": "publishing",
+    "enabled": true
+  },
+  {
+    "name": "Pixiv",
+    "url_template": "https://www.pixiv.net/en/users/{username}",
+    "method": "http",
+    "tags": ["art", "illustration", "creative"],
+    "country": "jp",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "MyAnimeList",
+    "url_template": "https://myanimelist.net/profile/{username}",
+    "method": "http",
+    "tags": ["anime", "manga", "social"],
+    "country": "us",
+    "category": "entertainment",
+    "enabled": true
+  },
+  {
+    "name": "Letterboxd",
+    "url_template": "https://letterboxd.com/{username}/",
+    "method": "http",
+    "tags": ["movies", "social", "reviews"],
+    "country": "us",
+    "category": "entertainment",
+    "enabled": true
+  },
+  {
+    "name": "VSCO",
+    "url_template": "https://vsco.co/{username}/gallery",
+    "method": "http",
+    "tags": ["photography", "creative", "editing"],
+    "country": "us",
+    "category": "creative",
+    "enabled": true
+  },
+  {
+    "name": "Snapchat",
+    "url_template": "https://www.snapchat.com/add/{username}",
+    "method": "browser",
+    "tags": ["social", "messaging", "media"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Telegram Channel",
+    "url_template": "https://t.me/s/{username}",
+    "method": "http",
+    "tags": ["chat", "broadcast", "messaging"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Signal",
+    "url_template": "https://signal.me/#p/{username}",
+    "method": "http",
+    "tags": ["messaging", "secure", "chat"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Matrix",
+    "url_template": "https://matrix.to/#/@{username}:matrix.org",
+    "method": "http",
+    "tags": ["chat", "federated", "messaging"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Periscope",
+    "url_template": "https://www.periscope.tv/{username}",
+    "method": "http",
+    "tags": ["streaming", "video", "live"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Mixcloud",
+    "url_template": "https://www.mixcloud.com/{username}/",
+    "method": "http",
+    "tags": ["music", "audio", "podcast"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Bandcamp",
+    "url_template": "https://bandcamp.com/{username}",
+    "method": "http",
+    "tags": ["music", "audio", "marketplace"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "ReverbNation",
+    "url_template": "https://www.reverbnation.com/{username}",
+    "method": "http",
+    "tags": ["music", "artist", "portfolio"],
+    "country": "us",
+    "category": "media",
+    "enabled": true
+  },
+  {
+    "name": "Clubhouse",
+    "url_template": "https://www.joinclubhouse.com/@{username}",
+    "method": "browser",
+    "tags": ["social", "audio", "chat"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Nextdoor",
+    "url_template": "https://nextdoor.com/profile/{username}/",
+    "method": "browser",
+    "tags": ["social", "local", "neighborhood"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Parler",
+    "url_template": "https://parler.com/profile/{username}",
+    "method": "http",
+    "tags": ["social", "microblogging"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Gab",
+    "url_template": "https://gab.com/{username}",
+    "method": "http",
+    "tags": ["social", "microblogging"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Truth Social",
+    "url_template": "https://truthsocial.com/@{username}",
+    "method": "http",
+    "tags": ["social", "microblogging"],
+    "country": "us",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "OK.ru",
+    "url_template": "https://ok.ru/{username}",
+    "method": "http",
+    "tags": ["social", "friends", "russia"],
+    "country": "ru",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "VK",
+    "url_template": "https://vk.com/{username}",
+    "method": "http",
+    "tags": ["social", "friends", "russia"],
+    "country": "ru",
+    "category": "social",
+    "enabled": true
+  },
+  {
+    "name": "Habr",
+    "url_template": "https://habr.com/en/users/{username}/",
+    "method": "http",
+    "tags": ["tech", "blogging", "development"],
+    "country": "ru",
+    "category": "tech",
+    "enabled": true
+  }
+]

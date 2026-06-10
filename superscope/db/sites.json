@@ -1,0 +1,254 @@
+[
+  {
+    "name": "github",
+    "url_template": "https://github.com/{username}",
+    "engine": "http",
+    "tags": ["coding", "social", "global"],
+    "country": "global",
+    "rank": 1,
+    "category": "tech"
+  },
+  {
+    "name": "twitter",
+    "url_template": "https://twitter.com/{username}",
+    "engine": "http",
+    "tags": ["social", "microblog", "global"],
+    "country": "global",
+    "rank": 2,
+    "category": "social"
+  },
+  {
+    "name": "reddit",
+    "url_template": "https://reddit.com/user/{username}",
+    "engine": "http",
+    "tags": ["social", "forum", "global"],
+    "country": "global",
+    "rank": 3,
+    "category": "social"
+  },
+  {
+    "name": "linkedin",
+    "url_template": "https://www.linkedin.com/in/{username}",
+    "engine": "http",
+    "tags": ["professional", "social", "global"],
+    "country": "global",
+    "rank": 4,
+    "category": "professional"
+  },
+  {
+    "name": "facebook",
+    "url_template": "https://www.facebook.com/{username}",
+    "engine": "http",
+    "tags": ["social", "global"],
+    "country": "global",
+    "rank": 5,
+    "category": "social"
+  },
+  {
+    "name": "instagram",
+    "url_template": "https://www.instagram.com/{username}",
+    "engine": "http",
+    "tags": ["social", "photo", "global"],
+    "country": "global",
+    "rank": 6,
+    "category": "social"
+  },
+  {
+    "name": "youtube",
+    "url_template": "https://www.youtube.com/@{username}",
+    "engine": "http",
+    "tags": ["video", "social", "global"],
+    "country": "global",
+    "rank": 7,
+    "category": "video"
+  },
+  {
+    "name": "tiktok",
+    "url_template": "https://www.tiktok.com/@{username}",
+    "engine": "http",
+    "tags": ["video", "social", "global"],
+    "country": "global",
+    "rank": 8,
+    "category": "video"
+  },
+  {
+    "name": "telegram",
+    "url_template": "https://t.me/{username}",
+    "engine": "http",
+    "tags": ["messaging", "social", "global"],
+    "country": "global",
+    "rank": 9,
+    "category": "messaging"
+  },
+  {
+    "name": "weibo",
+    "url_template": "https://weibo.com/u/{username}",
+    "engine": "browser",
+    "tags": ["social", "microblog", "china"],
+    "country": "cn",
+    "rank": 10,
+    "category": "social"
+  },
+  {
+    "name": "zhihu",
+    "url_template": "https://www.zhihu.com/people/{username}",
+    "engine": "browser",
+    "tags": ["social", "qa", "china"],
+    "country": "cn",
+    "rank": 11,
+    "category": "qa"
+  },
+  {
+    "name": "xiaohongshu",
+    "url_template": "https://www.xiaohongshu.com/user/profile/{username}",
+    "engine": "browser",
+    "tags": ["social", "lifestyle", "china"],
+    "country": "cn",
+    "rank": 12,
+    "category": "social"
+  },
+  {
+    "name": "douyin",
+    "url_template": "https://www.douyin.com/user/{username}",
+    "engine": "browser",
+    "tags": ["video", "social", "china"],
+    "country": "cn",
+    "rank": 13,
+    "category": "video"
+  },
+  {
+    "name": "bilibili",
+    "url_template": "https://space.bilibili.com/{username}",
+    "engine": "browser",
+    "tags": ["video", "anime", "china"],
+    "country": "cn",
+    "rank": 14,
+    "category": "video"
+  },
+  {
+    "name": "baidu",
+    "url_template": "https://tieba.baidu.com/home/main?un={username}",
+    "engine": "http",
+    "tags": ["forum", "china"],
+    "country": "cn",
+    "rank": 15,
+    "category": "forum"
+  },
+  {
+    "name": "qq",
+    "url_template": "https://user.qzone.qq.com/{username}",
+    "engine": "http",
+    "tags": ["social", "china"],
+    "country": "cn",
+    "rank": 16,
+    "category": "social"
+  },
+  {
+    "name": "keybase",
+    "url_template": "https://keybase.io/{username}",
+    "engine": "http",
+    "tags": ["crypto", "identity", "global"],
+    "country": "global",
+    "rank": 17,
+    "category": "identity"
+  },
+  {
+    "name": "gitlab",
+    "url_template": "https://gitlab.com/{username}",
+    "engine": "http",
+    "tags": ["coding", "global"],
+    "country": "global",
+    "rank": 18,
+    "category": "tech"
+  },
+  {
+    "name": "bitbucket",
+    "url_template": "https://bitbucket.org/{username}",
+    "engine": "http",
+    "tags": ["coding", "global"],
+    "country": "global",
+    "rank": 19,
+    "category": "tech"
+  },
+  {
+    "name": "medium",
+    "url_template": "https://medium.com/@{username}",
+    "engine": "http",
+    "tags": ["blogging", "global"],
+    "country": "global",
+    "rank": 20,
+    "category": "blogging"
+  },
+  {
+    "name": "devto",
+    "url_template": "https://dev.to/{username}",
+    "engine": "http",
+    "tags": ["coding", "blogging", "global"],
+    "country": "global",
+    "rank": 21,
+    "category": "tech"
+  },
+  {
+    "name": "hackernews",
+    "url_template": "https://news.ycombinator.com/user?id={username}",
+    "engine": "http",
+    "tags": ["news", "tech", "global"],
+    "country": "global",
+    "rank": 22,
+    "category": "news"
+  },
+  {
+    "name": "pinterest",
+    "url_template": "https://www.pinterest.com/{username}",
+    "engine": "http",
+    "tags": ["social", "photo", "global"],
+    "country": "global",
+    "rank": 23,
+    "category": "social"
+  },
+  {
+    "name": "steam",
+    "url_template": "https://steamcommunity.com/id/{username}",
+    "engine": "http",
+    "tags": ["gaming", "global"],
+    "country": "global",
+    "rank": 24,
+    "category": "gaming"
+  },
+  {
+    "name": "twitch",
+    "url_template": "https://www.twitch.tv/{username}",
+    "engine": "http",
+    "tags": ["streaming", "gaming", "global"],
+    "country": "global",
+    "rank": 25,
+    "category": "streaming"
+  },
+  {
+    "name": "spotify",
+    "url_template": "https://open.spotify.com/user/{username}",
+    "engine": "http",
+    "tags": ["music", "global"],
+    "country": "global",
+    "rank": 26,
+    "category": "music"
+  },
+  {
+    "name": "pixiv",
+    "url_template": "https://www.pixiv.net/users/{username}",
+    "engine": "http",
+    "tags": ["art", "japan"],
+    "country": "jp",
+    "rank": 27,
+    "category": "art"
+  },
+  {
+    "name": "vkontakte",
+    "url_template": "https://vk.com/{username}",
+    "engine": "http",
+    "tags": ["social", "russia"],
+    "country": "ru",
+    "rank": 28,
+    "category": "social"
+  }
+]
