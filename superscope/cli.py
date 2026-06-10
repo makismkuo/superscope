@@ -127,6 +127,13 @@ def main() -> None:
     count=True,
     help="Increase verbosity (-v, -vv).",
 )
+@click.option(
+    "--id-type",
+    type=click.Choice(["username", "email", "steam_id", "phone"]),
+    default="username",
+    show_default=True,
+    help="Type of identifier to search by.",
+)
 def scan(
     usernames: Sequence[str],
     platforms: Optional[str],
@@ -142,6 +149,7 @@ def scan(
     browser: bool,
     ai: bool,
     verbose: int,
+    id_type: str,
 ) -> None:
     """Scan USERNAME(S) across supported platforms for associated accounts.
 
@@ -193,6 +201,7 @@ def scan(
             use_browser=browser,
             use_ai=ai,
             verbose=verbose,
+            id_type=id_type,
         )
         all_scan_data.append(scan_data)
 
@@ -219,6 +228,7 @@ def _run_scan_sync(
     use_browser: bool = False,
     use_ai: bool = False,
     verbose: int = 0,
+    id_type: str = "username",
 ) -> Dict[str, Any]:
     """Synchronous wrapper around the async scan logic."""
     return asyncio.run(
@@ -234,6 +244,7 @@ def _run_scan_sync(
             use_browser=use_browser,
             use_ai=use_ai,
             verbose=verbose,
+            id_type=id_type,
         )
     )
 
@@ -250,6 +261,7 @@ async def _run_scan_async(
     use_browser: bool = False,
     use_ai: bool = False,
     verbose: int = 0,
+    id_type: str = "username",
 ) -> Dict[str, Any]:
     """Execute the full scan pipeline: filter sites, run checks, correlate, analyze."""
     from superscope.db.sites import SiteDatabase
@@ -257,6 +269,13 @@ async def _run_scan_async(
 
     db = SiteDatabase()
     sites = db.filter(names=platforms, tags=tags, country=country, top=top)
+
+    # Filter sites by id_type: only include platforms that support the given type
+    # Platforms without explicit id_types default to supporting "username"
+    sites = [
+        s for s in sites
+        if id_type in s.get("id_types", ["username"])
+    ]
 
     if not sites:
         console.print("[yellow]Warning:[/] No platforms matched the given filters.")
@@ -298,7 +317,7 @@ async def _run_scan_async(
                 retries=retries,
                 proxy_url=proxy_url,
             )
-            checker.register_http_defaults_from_db(db)
+            checker.register_http_defaults_from_db(db, id_type=id_type)
             http_results = await checker.check_many(http_platforms, username)
             for plat, res in http_results.items():
                 serialized = _serialize_result(res)

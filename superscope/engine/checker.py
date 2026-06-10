@@ -1,6 +1,7 @@
 """Async HTTP checker engine with timeout, retry, and proxy support."""
 
 import hashlib
+import re
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional
@@ -96,7 +97,25 @@ _NOT_FOUND_INDICATORS = [
 ]
 
 
-def _default_http_checker(platform: str, url_template: str) -> "PlatformChecker":
+def _build_check_url(url_template: str, search_term: str, transform: Optional[str] = None) -> str:
+    """Build a URL from template, applying any transform to the search term.
+
+    Args:
+        url_template: URL with ``{username}`` placeholder.
+        search_term: The value to substitute (username, email, phone, etc.).
+        transform: Optional transform type:
+            - ``md5_lower``: MD5 hex digest, lowercased
+
+    Returns:
+        The fully constructed URL.
+    """
+    value = search_term
+    if transform == "md5_lower":
+        value = hashlib.md5(search_term.strip().lower().encode()).hexdigest()
+    return url_template.format(username=value)
+
+
+def _default_http_checker(platform: str, url_template: str, transform: Optional[str] = None) -> "PlatformChecker":
     """Factory: create a generic HTTP GET checker from a URL template.
 
     The checker builds ``url_template.format(username=username)``, makes an
@@ -109,7 +128,7 @@ def _default_http_checker(platform: str, url_template: str) -> "PlatformChecker"
 
     async def _check(username: str, client: httpx.AsyncClient) -> CheckResult:
         import time
-        url = url_template.format(username=username)
+        url = _build_check_url(url_template, username, transform)
         start = time.monotonic()
 
         try:
@@ -213,11 +232,18 @@ class CheckerEngine:
     def register_http_defaults_from_db(
         self,
         db: "Any",  # SiteDatabase — avoid circular import at module level
+        id_type: str = "username",
     ) -> int:
         """Register default HTTP checkers for all http-engine platforms in *db*.
 
+        Only registers platforms that support the given ``id_type``.
+        Platforms without an explicit ``id_types`` field default to supporting
+        ``"username"``.
+
         Args:
             db: A ``SiteDatabase`` instance.
+            id_type: Type of identifier being searched (``"username"``,
+                ``"email"``, ``"steam_id"``, ``"phone"``).
 
         Returns:
             Number of checkers registered.
@@ -231,9 +257,17 @@ class CheckerEngine:
                 continue
             if engine != "http":
                 continue  # skip browser-only platforms
+            # Check id_type compatibility
+            site_id_types = site.get("id_types")
+            if site_id_types is not None:
+                if id_type not in site_id_types:
+                    continue  # skip platforms that don't support this id_type
+            elif id_type != "username":
+                continue  # no explicit id_types, only supports username
             if name in self._checkers:
                 continue  # already has a custom checker
-            self._checkers[name] = _default_http_checker(name, url_tpl)
+            transform = site.get("transform")
+            self._checkers[name] = _default_http_checker(name, url_tpl, transform)
             count += 1
         return count
 
